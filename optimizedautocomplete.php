@@ -10,7 +10,7 @@ function optimizedautocomplete_civicrm_buildForm($formName, $form) {
 }
 
 function optimizedautocomplete_civicrm_contactListQuery(&$query, $name, $context, $id) {
-  // if other params are passed, the return without any changes
+  // if other params are passed, then return without any changes
   if($_GET['context'] != 'navigation' 
     && $_GET['context'] != 'softcredit'
     && $_GET['context'] != 'relationship') {
@@ -61,7 +61,9 @@ function optimizedautocomplete_civicrm_contactListQuery(&$query, $name, $context
     if(!empty($email_result)) {
       // remove deleted contacts from $email_result
       $ids = array();
-      foreach($email_result as $id => $value) { $ids[] = $id; }
+      foreach($email_result as $id => $value) { 
+        $ids[] = $id; 
+      }
       $ids = implode(", ", $ids);
       $sql = "
         SELECT id 
@@ -85,7 +87,9 @@ function optimizedautocomplete_civicrm_contactListQuery(&$query, $name, $context
   // find email addresses, cities for these contacts
   $contacts = array();
   $ids = array();
-  foreach($result as $id => $value) { $ids[] = $id; }
+  foreach($result as $id => $value) { 
+    $ids[] = $id; 
+  }
   $ids = implode(", ", $ids);
   
   // find names
