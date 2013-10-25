@@ -11,11 +11,18 @@ function optimizedautocomplete_civicrm_buildForm($formName, $form) {
 
 function optimizedautocomplete_civicrm_contactListQuery(&$query, $name, $context, $id) {
   // if other params are passed, then return without any changes
+  // JM: insert additional context checks?
   if($_GET['context'] != 'navigation' 
     && $_GET['context'] != 'softcredit'
     && $_GET['context'] != 'relationship') {
     return;
   }
+  
+  // JM: quick and dirty: verify current user has view all contacts permission in civicrm_acl
+  // some notes from 4.3 schema (this is one query that may not encompass all permissioned users)
+  // select gc.contact_id from civicrm_group_contact gc inner join civicrm_acl_entity_role aer 
+  //   on aer.entity_table='civicrm_group' AND gc.group_id=aer.entity_id AND gc.status='Added' 
+  //  and gc.contact_id={id of current user};
 
   // create temp table for storing result set
   $random_num = md5(uniqid());
