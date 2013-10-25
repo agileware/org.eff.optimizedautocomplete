@@ -20,9 +20,11 @@ function optimizedautocomplete_civicrm_contactListQuery(&$query, $name, $context
   
   // JM: quick and dirty: verify current user has view all contacts permission in civicrm_acl
   // some notes from 4.3 schema (this is one query that may not encompass all permissioned users)
-  // select gc.contact_id from civicrm_group_contact gc inner join civicrm_acl_entity_role aer 
+  // select * from civicrm_group_contact gc inner join civicrm_acl_entity_role aer 
   //   on aer.entity_table='civicrm_group' AND gc.group_id=aer.entity_id AND gc.status='Added' 
-  //  and gc.contact_id={id of current user};
+  //   inner join civicrm_acl_cache ac on gc.contact_id=ac.contact_id 
+  //   inner join civicrm_acl a on ac.acl_id=a.id AND a.object_table='view all contacts'
+  //   WHERE gc.contact_id={current user's contact id};
 
   // create temp table for storing result set
   $random_num = md5(uniqid());
