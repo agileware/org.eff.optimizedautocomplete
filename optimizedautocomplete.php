@@ -14,7 +14,12 @@ function optimizedautocomplete_civicrm_contactListQuery(&$query, $name, $context
   // JM: insert additional context checks?
   if($_GET['context'] != 'navigation' 
     && $_GET['context'] != 'softcredit'
-    && $_GET['context'] != 'relationship') {
+    && $_GET['context'] != 'relationship'
+    && $_GET['context'] != 'newContact') {
+    return;
+  }
+
+  if (!CRM_Core_Permission::check('view all contacts')) {
     return;
   }
   
