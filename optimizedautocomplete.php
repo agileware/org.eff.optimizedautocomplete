@@ -43,10 +43,11 @@ function optimizedautocomplete_civicrm_contactListQuery(&$query, $name, $context
   CRM_Core_DAO::executeQuery($sql);
 
   // find the match from contact table
+  $column = (is_numeric($name) ? 'external_identifier' : 'sort_name');
   $sql = "
     SELECT id, sort_name
     FROM civicrm_contact 
-    WHERE sort_name LIKE '$name%'
+    WHERE $column LIKE '$name%'
     AND is_deleted = 0
     ORDER BY sort_name LIMIT 0, 25";
   $dao = CRM_Core_DAO::executeQuery($sql);
