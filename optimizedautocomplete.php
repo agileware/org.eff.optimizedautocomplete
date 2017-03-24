@@ -102,11 +102,14 @@ function optimizedautocomplete_civicrm_contactListQuery(&$query, $name, $context
   // find email addresses, cities for these contacts
   $contacts = array();
   $ids = array();
-  foreach($result as $id => $value) { 
-    $ids[] = $id; 
+  foreach($result as $id => $value) {
+    $ids[] = $id;
+  }
+  if (empty($ids)) {
+    return;
   }
   $ids = implode(", ", $ids);
-  
+
   // find names
   $names = array();
   $sql = "SELECT id, sort_name FROM civicrm_contact WHERE id IN ( $ids ) ORDER BY sort_name";
